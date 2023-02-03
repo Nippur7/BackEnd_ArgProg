@@ -15,7 +15,7 @@ public class CvDynamic1Application {
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer(){
-   	String[] allowDomains = new String[2];
+   	String[] allowDomains = new String[4];
    	allowDomains[0] = "http://localhost:4200";
    	allowDomains[1] = "http://localhost:8081";
 	allowDomains[2] = "https://cv-arg-prog.web.app";
