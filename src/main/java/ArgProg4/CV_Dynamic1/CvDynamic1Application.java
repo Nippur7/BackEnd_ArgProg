@@ -18,6 +18,7 @@ public class CvDynamic1Application {
    	String[] allowDomains = new String[2];
    	allowDomains[0] = "http://localhost:4200";
    	allowDomains[1] = "http://localhost:8081";
+	allowDomains[2] = "https://cv-arg-prog.web.app/";
 
    	System.out.println("CORS configuration....");
    	return new WebMvcConfigurer() {
