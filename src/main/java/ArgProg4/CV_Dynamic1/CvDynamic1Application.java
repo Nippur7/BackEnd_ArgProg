@@ -26,7 +26,8 @@ public class CvDynamic1Application {
     	@Override
     	public void addCorsMappings(CorsRegistry registry) {
         	registry.addMapping("/**")
-			.allowedOrigins(allowDomains)
+			// .allowedOrigins(allowDomains)
+			.allowedOrigins("*")
 			.allowedMethods("*")
 			.allowedHeaders("*");
       }
