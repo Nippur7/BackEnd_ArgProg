@@ -4,6 +4,8 @@
  */
 package ArgProg4.CV_Dynamic1.Controller;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +13,12 @@ import java.util.ArrayList;
 
 //import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+// import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,7 +90,7 @@ public class UsuarioController {
             UsuarioModel user =new ObjectMapper().readValue(userJson, UsuarioModel.class);
             if(!foto.isEmpty()){
                 //String ruta = "src//main//resources//static//images/uploads";            
-                Path directorioImagenes = Paths.get("ArgProgCv//src//main//resources//static//images/uploads");
+                Path directorioImagenes = Paths.get("src//main//resources//static//images/uploads");
                 String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
             
                 try{
@@ -105,21 +112,35 @@ public class UsuarioController {
         return "actualizado con exito";
     }
 
-    //@PostMapping("/users/save")
-    //public RedirectView saveUser(UsuarioModel user,
-    //        @RequestParam("image") MultipartFile multipartFile) throws IOException {
-         
-        //String fileName = StringUtils.(multipartFile.getOriginalFilename());
-        //user.setPicture(fileName);
+   @GetMapping("/imagen/{filename:.+}")
+   public ResponseEntity<Resource> getFile(@PathVariable String filename) throws IOException{ //byte[]
+    // Resource file = 
+    try{
+        Path directorioImagenes = Paths.get("src\\main\\resources\\static\\images\\uploads");
+        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+        Path rutaCompleta = Paths.get(rutaAbsoluta + "\\");
+        Path fileP = rutaCompleta.resolve(filename);
+        // byte[] archivoBytes = Files.readAllBytes(rutaCompleta);
+        // HttpHeaders headers = new HttpHeaders();
+        Resource file = new UrlResource((fileP.toUri()));
+        if (file.exists() || file.isReadable()){
+            String contentType = Files.probeContentType(file.getFile().toPath());
+            return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_TYPE, contentType)
+                .body(file);
+        }else{
+            throw new RuntimeException("No se puede leer el archivo " + fileP.toUri());
+        }
+        // headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        // headers.setContentDispositionFormData(filename, filename);
+        // headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        // ResponseEntity<byte[]> response = new ResponseEntity<>(archivoBytes, headers, HttpStatus.OK);
+        // return response;
+    }catch (MalformedURLException e){
+        throw new RuntimeException("Error de path "+filename);
 
-         
-      //  UsuarioModel savedUser = usuarioService.guardarUsuario(user);
- 
-        //String uploadDir = "user-photos/" + savedUser.getIdusuario();
- 
-        //FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-         
-        //return new RedirectView("/users", true);
-    //}
+    }
+   }
 
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author tonym
  */
 @RestController
-@RequestMapping(path = "contacto")
+@RequestMapping(path = "/contacto")
 public class ContactoController {
     
     @Autowired
@@ -47,6 +47,21 @@ public class ContactoController {
     public String borrarTipo(@PathVariable Integer id){
         contactoService.borrarContacto(id);
         return "Eliminación exitosa";
+    }
+
+    @GetMapping("/usuario/{id}")
+    public ContactoModel obtenerExpUser(@PathVariable Integer id){
+        ContactoModel byUser = new ContactoModel();
+        ArrayList<ContactoModel> aux = contactoService.obtenerContacto();
+        //Integer ii = 0;
+        for (int i=0;i<aux.size();i++) {      
+            //System.out.println(lista.get(i));
+            if(aux.get(i).getIduser() == id){
+                byUser = aux.get(i);
+                break;
+            }
+          }
+        return byUser;
     }
 
 }

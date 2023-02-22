@@ -19,39 +19,59 @@ public class ContactoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private int idactividad;
-    private String click;
-    private int cantidad;
+    private String link;
+    private String git;    
     private Date fecha;
     private int iduser;
     private String email;
     private String celular;
+    private String pais;
+
+    public String getPais() {
+        return this.pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getProvincia() {
+        return this.provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+    private String puesto;
+    private String provincia;
+
 
     public int getIdactividad() {
-        return idactividad;
+        return this.idactividad;
     }
 
     public void setIdactividad(int idactividad) {
         this.idactividad = idactividad;
     }
 
-    public String getClick() {
-        return click;
+    public String getLink() {
+        return this.link;
     }
 
-    public void setClick(String click) {
-        this.click = click;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public String getGit() {
+        return this.git;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setGit(String git) {
+        this.git = git;
     }
 
     public Date getFecha() {
-        return fecha;
+        return this.fecha;
     }
 
     public void setFecha(Date fecha) {
@@ -59,7 +79,7 @@ public class ContactoModel {
     }
 
     public int getIduser() {
-        return iduser;
+        return this.iduser;
     }
 
     public void setIduser(int iduser) {
@@ -67,7 +87,7 @@ public class ContactoModel {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -75,11 +95,19 @@ public class ContactoModel {
     }
 
     public String getCelular() {
-        return celular;
+        return this.celular;
     }
 
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    public String getPuesto() {
+        return this.puesto;
+    }
+
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
     }
     
     
