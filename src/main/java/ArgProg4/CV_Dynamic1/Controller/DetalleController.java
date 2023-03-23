@@ -41,10 +41,27 @@ public class DetalleController {
         return detalleService.encontrarDetalle(id);
     } 
 
+
+
     @DeleteMapping("/borrar/{id}")
     public String borrarTipo(@PathVariable Integer id){
         detalleService.borrarDetalle(id);
         return "Eliminación exitosa";
+    }
+
+    @GetMapping("/usuario/{id}")
+    public ArrayList<DetalleModel> obtenerExpUser(@PathVariable Integer id){
+        ArrayList<DetalleModel> byUser = new ArrayList<DetalleModel>();
+        ArrayList<DetalleModel> aux = detalleService.obtenerDetalle();
+        //Integer ii = 0;
+        for (int i=0;i<aux.size();i++) {      
+            //System.out.println(lista.get(i));
+            if(aux.get(i).getIduser() == id){
+                byUser.add(aux.get(i));
+
+            }
+          }
+        return byUser;
     }
     
 }
