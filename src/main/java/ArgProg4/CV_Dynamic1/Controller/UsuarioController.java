@@ -116,7 +116,7 @@ public class UsuarioController {
    public ResponseEntity<Resource> getFile(@PathVariable String filename) throws IOException{ //byte[]
     // Resource file = 
     try{
-        Path directorioImagenes = Paths.get("src\\main\\resources\\static\\images\\uploads");
+        Path directorioImagenes = Paths.get("src//main//resources//static//images//uploads");
         String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
         Path rutaCompleta = Paths.get(rutaAbsoluta + "\\");
         Path fileP = rutaCompleta.resolve(filename);
